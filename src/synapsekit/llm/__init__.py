@@ -8,12 +8,15 @@ __all__ = [
     "BedrockLLM",
     "CohereLLM",
     "DeepSeekLLM",
+    "FireworksLLM",
     "GeminiLLM",
     "GroqLLM",
     "LLMConfig",
     "MistralLLM",
     "OllamaLLM",
     "OpenAILLM",
+    "OpenRouterLLM",
+    "TogetherLLM",
     "generate_structured",
 ]
 
@@ -28,6 +31,9 @@ _PROVIDERS = {
     "BedrockLLM": ".bedrock",
     "GroqLLM": ".groq",
     "DeepSeekLLM": ".deepseek",
+    "OpenRouterLLM": ".openrouter",
+    "TogetherLLM": ".together",
+    "FireworksLLM": ".fireworks",
 }
 
 

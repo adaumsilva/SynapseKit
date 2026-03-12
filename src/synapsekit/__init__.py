@@ -21,10 +21,16 @@ from .agents import (
     AgentStep,
     BaseTool,
     CalculatorTool,
+    DateTimeTool,
+    FileListTool,
     FileReadTool,
+    FileWriteTool,
     FunctionCallingAgent,
+    HTTPRequestTool,
+    JSONQueryTool,
     PythonREPLTool,
     ReActAgent,
+    RegexTool,
     SQLQueryTool,
     ToolRegistry,
     ToolResult,
@@ -69,8 +75,10 @@ from .prompts.template import ChatPromptTemplate, FewShotPromptTemplate, PromptT
 from .rag.facade import RAG
 from .rag.pipeline import RAGConfig, RAGPipeline
 from .retrieval.base import VectorStore
+from .retrieval.contextual import ContextualRetriever
 from .retrieval.rag_fusion import RAGFusionRetriever
 from .retrieval.retriever import Retriever
+from .retrieval.sentence_window import SentenceWindowRetriever
 from .retrieval.vectorstore import InMemoryVectorStore
 from .text_splitters import (
     BaseSplitter,
@@ -80,7 +88,7 @@ from .text_splitters import (
     TokenAwareSplitter,
 )
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"
 __all__ = [
     # Facade
     "RAG",
@@ -91,8 +99,11 @@ __all__ = [
     "BaseLLM",
     "LLMConfig",
     "AzureOpenAILLM",
-    "GroqLLM",
     "DeepSeekLLM",
+    "FireworksLLM",
+    "GroqLLM",
+    "OpenRouterLLM",
+    "TogetherLLM",
     # Embeddings
     "SynapsekitEmbeddings",
     # Vector stores
@@ -105,6 +116,8 @@ __all__ = [
     # Retrieval
     "Retriever",
     "RAGFusionRetriever",
+    "ContextualRetriever",
+    "SentenceWindowRetriever",
     # Memory / observability
     "ConversationMemory",
     "TokenTracer",
@@ -142,8 +155,14 @@ __all__ = [
     "tool",
     # Built-in tools
     "CalculatorTool",
+    "DateTimeTool",
+    "FileListTool",
     "FileReadTool",
+    "FileWriteTool",
+    "HTTPRequestTool",
+    "JSONQueryTool",
     "PythonREPLTool",
+    "RegexTool",
     "SQLQueryTool",
     "WebSearchTool",
     # Text splitters
@@ -183,8 +202,11 @@ _LAZY_IMPORTS = {
     "PineconeVectorStore": "retrieval.pinecone",
     # LLM providers
     "AzureOpenAILLM": "llm.azure_openai",
-    "GroqLLM": "llm.groq",
     "DeepSeekLLM": "llm.deepseek",
+    "FireworksLLM": "llm.fireworks",
+    "GroqLLM": "llm.groq",
+    "OpenRouterLLM": "llm.openrouter",
+    "TogetherLLM": "llm.together",
     # Loaders
     "ExcelLoader": "loaders.excel",
     "PowerPointLoader": "loaders.pptx",

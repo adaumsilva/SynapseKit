@@ -7,8 +7,14 @@ from .registry import ToolRegistry
 from .tool_decorator import tool
 from .tools import (
     CalculatorTool,
+    DateTimeTool,
+    FileListTool,
     FileReadTool,
+    FileWriteTool,
+    HTTPRequestTool,
+    JSONQueryTool,
     PythonREPLTool,
+    RegexTool,
     SQLQueryTool,
     WebSearchTool,
 )
@@ -29,8 +35,14 @@ __all__ = [
     "tool",
     # Built-in tools
     "CalculatorTool",
+    "DateTimeTool",
+    "FileListTool",
     "FileReadTool",
+    "FileWriteTool",
+    "HTTPRequestTool",
+    "JSONQueryTool",
     "PythonREPLTool",
+    "RegexTool",
     "SQLQueryTool",
     "WebSearchTool",
 ]

@@ -37,6 +37,9 @@ def _make_llm(
             provider = "deepseek"
         elif model.startswith("llama") or model.startswith("mixtral") or model.startswith("gemma"):
             provider = "groq"
+        elif "/" in model:
+            # Slash in model name suggests OpenRouter (e.g. "openai/gpt-4o")
+            provider = "openrouter"
         else:
             provider = "openai"
 
@@ -85,11 +88,23 @@ def _make_llm(
         from ..llm.deepseek import DeepSeekLLM
 
         return DeepSeekLLM(config)
+    elif provider == "openrouter":
+        from ..llm.openrouter import OpenRouterLLM
+
+        return OpenRouterLLM(config)
+    elif provider == "together":
+        from ..llm.together import TogetherLLM
+
+        return TogetherLLM(config)
+    elif provider == "fireworks":
+        from ..llm.fireworks import FireworksLLM
+
+        return FireworksLLM(config)
     else:
         raise ValueError(
             f"Unknown provider: {provider!r}. "
             "Use 'openai', 'anthropic', 'ollama', 'cohere', 'mistral', 'gemini', "
-            "'bedrock', 'groq', or 'deepseek'."
+            "'bedrock', 'groq', 'deepseek', 'openrouter', 'together', or 'fireworks'."
         )
 
 
