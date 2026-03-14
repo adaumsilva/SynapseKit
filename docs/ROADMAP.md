@@ -71,6 +71,18 @@
 - [x] `WikipediaTool` — Wikipedia article search and summaries
 - [x] 13 providers, 13 tools, 12 loaders, 10 retrieval strategies, 4 memory backends, 512 tests passing
 
+## v0.6.3 — Typed State, Fan-Out, SSE & LLM Tools (current)
+
+- [x] `TypedState` + `StateField` — typed state with per-field reducers for parallel merge
+- [x] `fan_out_node()` — parallel subgraph execution with custom merge
+- [x] `sse_stream()` — SSE streaming for graph execution
+- [x] `EventHooks` + `GraphEvent` — event callbacks for graph monitoring
+- [x] `SemanticCache` — similarity-based LLM cache using embeddings
+- [x] `SummarizationTool` — summarize text with LLM
+- [x] `SentimentAnalysisTool` — sentiment analysis with LLM
+- [x] `TranslationTool` — translate text with LLM
+- [x] 13 providers, 16 tools, 12 loaders, 10 retrieval strategies, 4 memory backends, 540 tests passing
+
 ## v0.7.0 (planned)
 
 - [ ] Multi-modal support (image inputs for vision models)

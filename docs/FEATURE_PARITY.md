@@ -1,6 +1,6 @@
 # SynapseKit vs LangChain — Feature Parity Report
 
-> Updated for v0.6.2 (2026-03-13)
+> Updated for v0.6.3 (2026-03-14)
 
 ## Phase 1: RAG Pipelines
 
@@ -41,7 +41,7 @@
 |---|---|---|---|
 | ReAct agent | Yes | Yes | At parity |
 | Function calling agent | Yes (any provider with tool support) | Yes (OpenAI, Anthropic, Gemini, Mistral) | 4 providers — missing Cohere |
-| Built-in tools | 50+ (search, code, DB, APIs, web) | 13 (Calculator, PythonREPL, FileRead, FileWrite, FileList, WebSearch, SQL, HTTP, DateTime, Regex, JSONQuery, HumanInput, Wikipedia) | Fewer but covers essentials |
+| Built-in tools | 50+ (search, code, DB, APIs, web) | 16 (Calculator, PythonREPL, FileRead, FileWrite, FileList, WebSearch, SQL, HTTP, DateTime, Regex, JSONQuery, HumanInput, Wikipedia, Summarization, SentimentAnalysis, Translation) | Fewer but covers essentials |
 | Custom tools | @tool decorator + StructuredTool | @tool decorator + BaseTool subclass | At parity |
 | Streaming agent steps | Yes | Yes | At parity |
 | Human input tool | Yes | Yes (`HumanInputTool`) | At parity |
@@ -60,14 +60,15 @@
 | Conditional routing | Yes | Yes | At parity |
 | Parallel execution | Yes (asyncio.gather) | Yes (asyncio.gather) | At parity |
 | Mermaid export | Yes | Yes | At parity |
-| Streaming | Node + token level | Node + token level (`llm_node` + `stream_tokens`) | At parity |
+| Streaming | Node + token level | Node + token level (`llm_node` + `stream_tokens`) + SSE (`sse_stream`) | At parity |
 | Cyclic graphs (loops) | Yes | Yes (`compile(allow_cycles=True)`) | At parity |
 | Human-in-the-loop | interrupt() + Command(resume=) | `GraphInterrupt` + `resume(updates=...)` | At parity |
 | Checkpointing / persistence | SQLite, Postgres, Redis | InMemory + SQLite | Missing Postgres/Redis backends |
-| Subgraphs | Yes | Yes (`subgraph_node()`) | At parity |
-| Typed state + reducers | Annotated types with reducers | Plain dict.update() | Parallel state merge conflicts possible |
+| Subgraphs | Yes | Yes (`subgraph_node()`, `fan_out_node()`) | At parity |
+| Typed state + reducers | Annotated types with reducers | `TypedState` + `StateField` with per-field reducers | At parity |
+| Event callbacks | Yes | `EventHooks` (node_start, node_complete, wave_start, wave_complete) | At parity |
 
-**Verdict:** Near-complete parity. Human-in-the-loop, subgraphs, token streaming, cycles, and checkpointing all done. Only remaining gaps: typed state with reducers, Postgres/Redis checkpoint backends.
+**Verdict:** At parity for core features. Human-in-the-loop, subgraphs, fan-out/fan-in, typed state with reducers, token streaming, SSE streaming, event callbacks, cycles, and checkpointing all done. Only remaining gap: Postgres/Redis checkpoint backends.
 
 ---
 
@@ -75,12 +76,12 @@
 
 | | LangChain | SynapseKit | Notes |
 |---|---|---|---|
-| Breadth | Massive (200+ loaders, 38+ providers, 50+ tools) | Focused (12 loaders, 13 providers, 13 tools) | SynapseKit covers the 80/20 |
+| Breadth | Massive (200+ loaders, 38+ providers, 50+ tools) | Focused (12 loaders, 13 providers, 16 tools) | SynapseKit covers the 80/20 |
 | API simplicity | Complex, lots of boilerplate | Clean, 3-line happy path | SynapseKit advantage |
 | Async/streaming | Retrofitted | Native from day 1 | SynapseKit advantage |
 | Dependencies | Heavy (langchain-core + per-provider) | 2 hard deps | SynapseKit advantage |
 | Production features | Caching, retries, rate limiting, observability | Caching (memory+SQLite), retries, rate limiting, structured output | Close — missing Redis cache, deep observability |
-| Graph workflows | Mature (HITL, checkpoints, cycles, subgraphs, typed state) | HITL, checkpoints, cycles, subgraphs, token streaming | Near parity — missing typed state |
+| Graph workflows | Mature (HITL, checkpoints, cycles, subgraphs, typed state) | HITL, checkpoints, cycles, subgraphs, typed state, fan-out, SSE, event callbacks | At parity |
 | Retrieval | 10+ strategies | 10 strategies | At parity |
 | Memory | 4+ types | 4 types (window, hybrid, SQLite, summary buffer) | At parity |
 
@@ -90,8 +91,9 @@
 - Truly async-native and streaming-first
 - Minimal dependencies (2 hard deps)
 - Auto-detection of providers from model name
-- 13 LLM providers, 12 loaders, 13 tools — covers real-world needs
+- 13 LLM providers, 12 loaders, 16 tools — covers real-world needs
 - 10 retrieval strategies including CRAG, ensemble, and compression
+- Graph workflows at feature parity with LangGraph
 
 ### Closed since v0.5.0
 
@@ -117,12 +119,17 @@
 20. SQLite persistent conversation memory (v0.6.2)
 21. Summary Buffer memory (v0.6.2)
 22. HumanInput + Wikipedia tools (v0.6.2)
+23. Typed state with per-field reducers (v0.6.3)
+24. Fan-out/fan-in parallel subgraph execution (v0.6.3)
+25. SSE streaming for graph execution (v0.6.3)
+26. Event callbacks/hooks for graph monitoring (v0.6.3)
+27. Semantic LLM cache with embedding similarity (v0.6.3)
+28. Summarization, SentimentAnalysis, Translation tools (v0.6.3)
 
 ### Remaining priority gaps
 
 1. Multi-agent orchestration
 2. Multi-modal support (image inputs)
 3. Evaluation framework (RAGAS-style metrics)
-4. Typed state with reducers for graph workflows
-5. Deep observability (LangSmith equivalent)
-6. HyDE retrieval
+4. Deep observability (LangSmith equivalent)
+5. HyDE retrieval
