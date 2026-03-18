@@ -24,15 +24,18 @@ from .agents import (
     CalculatorTool,
     DateTimeTool,
     DuckDuckGoSearchTool,
+    EmailTool,
     FileListTool,
     FileReadTool,
     FileWriteTool,
     FunctionCallingAgent,
+    GitHubAPITool,
     GraphQLTool,
     HTTPRequestTool,
     HumanInputTool,
     JSONQueryTool,
     PDFReaderTool,
+    PubMedSearchTool,
     PythonREPLTool,
     ReActAgent,
     RegexTool,
@@ -45,9 +48,11 @@ from .agents import (
     ToolRegistry,
     ToolResult,
     TranslationTool,
+    VectorSearchTool,
     WebScraperTool,
     WebSearchTool,
     WikipediaTool,
+    YouTubeSearchTool,
     tool,
 )
 from .embeddings.backend import SynapsekitEmbeddings
@@ -59,6 +64,7 @@ from .graph import (
     ConditionFn,
     Edge,
     EventHooks,
+    ExecutionTrace,
     GraphConfigError,
     GraphEvent,
     GraphInterrupt,
@@ -72,6 +78,7 @@ from .graph import (
     SQLiteCheckpointer,
     StateField,
     StateGraph,
+    TraceEntry,
     TypedState,
     agent_node,
     fan_out_node,
@@ -79,6 +86,7 @@ from .graph import (
     rag_node,
     sse_stream,
     subgraph_node,
+    ws_stream,
 )
 from .llm.base import BaseLLM, LLMConfig
 from .llm.structured import generate_structured
@@ -134,7 +142,7 @@ from .text_splitters import (
     TokenAwareSplitter,
 )
 
-__version__ = "0.6.7"
+__version__ = "0.6.8"
 __all__ = [
     # Facade
     "RAG",
@@ -246,9 +254,14 @@ __all__ = [
     "SummarizationTool",
     "TavilySearchTool",
     "TranslationTool",
+    "EmailTool",
+    "GitHubAPITool",
+    "PubMedSearchTool",
     "WebScraperTool",
     "WebSearchTool",
+    "VectorSearchTool",
     "WikipediaTool",
+    "YouTubeSearchTool",
     # Text splitters
     "BaseSplitter",
     "CharacterTextSplitter",
@@ -277,8 +290,11 @@ __all__ = [
     "StateGraph",
     "TypedState",
     "CompiledGraph",
+    "ExecutionTrace",
+    "TraceEntry",
     "fan_out_node",
     "sse_stream",
+    "ws_stream",
     # Checkpointers
     "BaseCheckpointer",
     "InMemoryCheckpointer",
