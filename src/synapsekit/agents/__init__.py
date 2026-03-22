@@ -9,6 +9,16 @@ from .guardrails import (
     TopicRestrictor,
 )
 from .memory import AgentMemory, AgentStep
+from .pii_redactor import PIIRedactor, RedactionResult
+from .step_events import (
+    ActionEvent,
+    ErrorEvent,
+    FinalAnswerEvent,
+    ObservationEvent,
+    StepEvent,
+    ThoughtEvent,
+    TokenEvent,
+)
 from .multi import (
     Crew,
     CrewAgent,
@@ -111,6 +121,17 @@ __all__ = [
     "WebSearchTool",
     "WikipediaTool",
     "YouTubeSearchTool",
+    # PIIRedactor
+    "PIIRedactor",
+    "RedactionResult",
+    # Step events
+    "ActionEvent",
+    "ErrorEvent",
+    "FinalAnswerEvent",
+    "ObservationEvent",
+    "StepEvent",
+    "ThoughtEvent",
+    "TokenEvent",
     # Multi-agent
     "Crew",
     "CrewAgent",
