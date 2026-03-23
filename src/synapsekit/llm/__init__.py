@@ -9,6 +9,7 @@ __all__ = [
     "BaseLLM",
     "BedrockLLM",
     "CerebrasLLM",
+    "CloudflareLLM",
     "CohereLLM",
     "CostRouter",
     "CostRouterConfig",
@@ -47,6 +48,7 @@ _PROVIDERS = {
     "FireworksLLM": ".fireworks",
     "PerplexityLLM": ".perplexity",
     "CerebrasLLM": ".cerebras",
+    "CloudflareLLM": ".cloudflare",
     "VertexAILLM": ".vertex_ai",
 }
 
