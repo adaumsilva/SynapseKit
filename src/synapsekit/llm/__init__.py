@@ -20,6 +20,7 @@ __all__ = [
     "GeminiLLM",
     "GroqLLM",
     "LLMConfig",
+    "LlamaCppLLM",
     "MistralLLM",
     "OllamaLLM",
     "OpenAILLM",
@@ -49,6 +50,7 @@ _PROVIDERS = {
     "PerplexityLLM": ".perplexity",
     "CerebrasLLM": ".cerebras",
     "CloudflareLLM": ".cloudflare",
+    "LlamaCppLLM": ".llamacpp",
     "VertexAILLM": ".vertex_ai",
 }
 
