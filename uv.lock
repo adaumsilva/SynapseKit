@@ -5367,11 +5367,7 @@ requires-dist = [
     { name = "youtube-search-python", marker = "extra == 'all'", specifier = ">=1.6" },
     { name = "youtube-search-python", marker = "extra == 'youtube'", specifier = ">=1.6" },
 ]
-<<<<<<< HEAD
-provides-extras = ["openai", "anthropic", "semantic", "pdf", "html", "web", "chroma", "faiss", "qdrant", "pinecone", "ollama", "cohere", "mistral", "gemini", "bedrock", "groq", "audio", "video", "excel", "pptx", "docx", "http", "search", "tavily", "youtube", "mcp", "redis", "vertex", "serve", "postgres", "all"]
-=======
 provides-extras = ["openai", "anthropic", "semantic", "pdf", "html", "web", "chroma", "faiss", "qdrant", "pinecone", "ollama", "cohere", "mistral", "gemini", "bedrock", "groq", "audio", "video", "excel", "pptx", "docx", "http", "search", "tavily", "youtube", "mcp", "redis", "vertex", "cloudflare", "llamacpp", "serve", "postgres", "all"]
->>>>>>> 46ee9c2 (feat: add LlamaCppLLM — local GGUF model provider via llama-cpp-python)
 
 [package.metadata.requires-dev]
 dev = [
