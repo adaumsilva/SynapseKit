@@ -25,7 +25,6 @@ from unittest.mock import Mock
 
 import pytest
 
-
 # ──────────────────────────────────────────────────────────────────────────────
 # Decorator: iscoroutinefunction preservation
 # ──────────────────────────────────────────────────────────────────────────────
