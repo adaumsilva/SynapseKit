@@ -9,6 +9,10 @@ SynapseKit uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+---
+
+## [1.5.1] — 2026-04-09
+
 ### Added
 
 - **WeatherTool tests** — full test suite covering current weather, forecast, missing API key, empty results, network errors, schema validation; closes #383
