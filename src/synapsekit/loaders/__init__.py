@@ -2,6 +2,7 @@ from typing import Any
 
 from .base import Document
 from .markdown import MarkdownLoader
+from .s3 import S3Loader
 from .text import StringLoader, TextLoader
 
 __all__ = [
@@ -26,6 +27,7 @@ __all__ = [
     "NotionLoader",
     "PDFLoader",
     "RSSLoader",
+    "S3Loader",
     "SQLLoader",
     "SlackLoader",
     "StringLoader",
@@ -63,6 +65,7 @@ _LOADERS = {
     "SlackLoader": ".slack",
     "NotionLoader": ".notion",
     "RSSLoader": ".rss",
+    "S3Loader": ".s3",
     "SQLLoader": ".sql",
     "SupabaseLoader": ".supabase",
     "TeamsLoader": ".teams",
