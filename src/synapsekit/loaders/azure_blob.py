@@ -6,7 +6,7 @@ import asyncio
 import logging
 import os
 import tempfile
-from typing import Any
+from typing import Any, cast
 
 from .base import Document
 
@@ -104,7 +104,8 @@ class AzureBlobLoader:
                 blob_client = container_client.get_blob_client(blob.name)
                 content_bytes = await loop.run_in_executor(
                     None,
-                    lambda bc=blob_client: bc.download_blob().readall(),
+                    self._download_blob_bytes,
+                    blob_client,
                 )
                 content_type = self._blob_content_type(blob)
                 text = self._extract_text(blob.name, content_bytes, content_type)
@@ -129,6 +130,10 @@ class AzureBlobLoader:
                 logger.warning("AzureBlobLoader: skipping blob %r — %s", blob.name, exc)
 
         return docs
+
+    @staticmethod
+    def _download_blob_bytes(blob_client: Any) -> bytes:
+        return cast(bytes, blob_client.download_blob().readall())
 
     def _blob_content_type(self, blob: Any) -> str | None:
         content_settings = getattr(blob, "content_settings", None)

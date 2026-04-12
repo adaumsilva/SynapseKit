@@ -285,6 +285,7 @@ slack-sdk = "slack_sdk"
 weaviate-client = "weaviate"
 atlassian-python-api = "atlassian"
 gitpython = "git"
+azure-storage-blob = "azure"
 
 [tool.deptry.per_rule_ignores]
 DEP001 = ["sqlalchemy", "pydantic", "aiohttp", "opentelemetry", "whisper", "botocore", "aiomcache", "nest_asyncio", "huggingface_hub", "serpapi", "weaviate"]
