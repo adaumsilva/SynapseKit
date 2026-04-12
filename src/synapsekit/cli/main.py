@@ -52,6 +52,59 @@ def _add_test_parser(subparsers: argparse._SubParsersAction) -> None:  # type: i
     )
 
 
+def _add_eval_parser(subparsers: argparse._SubParsersAction) -> None:  # type: ignore[type-arg]
+    p = subparsers.add_parser("eval", help="EvalCI snapshot report/export/compare")
+    eval_sub = p.add_subparsers(dest="eval_command")
+
+    report = eval_sub.add_parser("report", help="Summarize a saved eval snapshot")
+    report.add_argument("snapshot", help="Snapshot name")
+    report.add_argument("--threshold", type=float, default=0.8, help="Weak-case threshold")
+    report.add_argument("--snapshot-dir", default=".synapsekit_evals", help="Snapshot storage dir")
+
+    export = eval_sub.add_parser("export", help="Export snapshot to fine-tune dataset")
+    export.add_argument("snapshot", help="Snapshot name")
+    export.add_argument(
+        "--format",
+        choices=["openai", "anthropic", "together", "jsonl", "dpo"],
+        default="openai",
+        help="Export format",
+    )
+    export.add_argument("--min-score", type=float, default=None, help="Minimum score filter")
+    export.add_argument("--max-score", type=float, default=None, help="Maximum score filter")
+    export.add_argument("--output", required=True, help="Output JSONL path")
+    export.add_argument("--snapshot-dir", default=".synapsekit_evals", help="Snapshot storage dir")
+
+    compare = eval_sub.add_parser("compare", help="Compare two saved eval snapshots")
+    compare.add_argument("baseline", help="Baseline snapshot")
+    compare.add_argument("current", help="Current snapshot")
+    compare.add_argument("--snapshot-dir", default=".synapsekit_evals", help="Snapshot storage dir")
+
+
+def _add_finetune_parser(subparsers: argparse._SubParsersAction) -> None:  # type: ignore[type-arg]
+    p = subparsers.add_parser("finetune", help="Submit and monitor fine-tuning jobs")
+    ft_sub = p.add_subparsers(dest="finetune_command")
+
+    submit = ft_sub.add_parser("submit", help="Submit fine-tuning job")
+    submit.add_argument("dataset", help="Dataset file ID/path accepted by provider")
+    submit.add_argument("--provider", choices=["openai", "together"], required=True)
+    submit.add_argument("--base-model", required=True, help="Base model name")
+    submit.add_argument("--job-name", default=None, help="Optional job suffix/name")
+    submit.add_argument("--n-epochs", type=int, default=3, help="Training epochs")
+    submit.add_argument("--api-key", default=None, help="Provider API key")
+
+    status = ft_sub.add_parser("status", help="Get fine-tune job status")
+    status.add_argument("job_id", help="Fine-tune job ID")
+    status.add_argument("--provider", choices=["openai", "together"], required=True)
+    status.add_argument("--api-key", default=None, help="Provider API key")
+
+    wait = ft_sub.add_parser("wait", help="Wait for fine-tune job completion")
+    wait.add_argument("job_id", help="Fine-tune job ID")
+    wait.add_argument("--provider", choices=["openai", "together"], required=True)
+    wait.add_argument("--interval", type=float, default=10.0, help="Poll interval seconds")
+    wait.add_argument("--timeout", type=float, default=3600.0, help="Timeout seconds")
+    wait.add_argument("--api-key", default=None, help="Provider API key")
+
+
 def main(argv: list[str] | None = None) -> None:
     """CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -63,6 +116,8 @@ def main(argv: list[str] | None = None) -> None:
     subparsers = parser.add_subparsers(dest="command")
     _add_serve_parser(subparsers)
     _add_test_parser(subparsers)
+    _add_eval_parser(subparsers)
+    _add_finetune_parser(subparsers)
 
     args = parser.parse_args(argv)
 
@@ -80,6 +135,14 @@ def main(argv: list[str] | None = None) -> None:
         from .test import run_test
 
         run_test(args)
+    elif args.command == "eval":
+        from .eval import run_eval
+
+        run_eval(args)
+    elif args.command == "finetune":
+        from .finetune import run_finetune
+
+        run_finetune(args)
     else:
         parser.print_help()
         sys.exit(1)

@@ -152,6 +152,7 @@ from .llm.fallback_chain import FallbackChain, FallbackChainConfig
 from .llm.multimodal import AudioContent, ImageContent, MultimodalMessage
 from .llm.structured import generate_structured
 from .loaders.arxiv import ArXivLoader
+from .loaders.azure_blob import AzureBlobLoader
 from .loaders.base import Document
 from .loaders.confluence import ConfluenceLoader
 from .loaders.csv import CSVLoader
@@ -166,8 +167,10 @@ from .loaders.image import ImageLoader
 from .loaders.jira import JiraLoader
 from .loaders.json_loader import JSONLoader
 from .loaders.markdown import MarkdownLoader
+from .loaders.mongodb import MongoDBLoader
 from .loaders.pdf import PDFLoader
 from .loaders.rss import RSSLoader
+from .loaders.s3 import S3Loader
 from .loaders.sql import SQLLoader
 from .loaders.teams import TeamsLoader
 from .loaders.text import StringLoader, TextLoader
@@ -337,12 +340,14 @@ __all__ = [
     "Document",
     "TextLoader",
     "ArXivLoader",
+    "AzureBlobLoader",
     "StringLoader",
     "PDFLoader",
     "HTMLLoader",
     "CSVLoader",
     "JSONLoader",
     "DirectoryLoader",
+    "DropboxLoader",
     "ConfluenceLoader",
     "DocxLoader",
     "EmailLoader",
@@ -352,11 +357,13 @@ __all__ = [
     "GoogleSheetsLoader",
     "JiraLoader",
     "MarkdownLoader",
+    "MongoDBLoader",
     "SQLLoader",
     "SupabaseLoader",
     "TeamsLoader",
     "WebLoader",
     "RSSLoader",
+    "S3Loader",
     "WikipediaLoader",
     "ExcelLoader",
     "PowerPointLoader",
@@ -604,6 +611,10 @@ _LAZY_IMPORTS = {
     "DiscordLoader": "loaders.discord",
     "XMLLoader": "loaders.xml_loader",
     "GoogleDriveLoader": "loaders.google_drive",
+    "MongoDBLoader": "loaders.mongodb",
+    "AzureBlobLoader": "loaders.azure_blob",
+    "S3Loader": "loaders.s3",
+    "DropboxLoader": "loaders.dropbox",
 }
 
 

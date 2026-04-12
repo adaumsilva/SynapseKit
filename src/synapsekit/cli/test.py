@@ -113,18 +113,23 @@ def run_test(args: Any) -> None:
             if not passed:
                 any_failed = True
 
-            results.append(
-                {
-                    "file": str(filepath),
-                    "name": name,
-                    "passed": passed,
-                    "score": result.get("score"),
-                    "cost_usd": result.get("cost_usd"),
-                    "latency_ms": result.get("latency_ms"),
-                    "failures": failures,
-                    "tags": meta.tags,
-                }
-            )
+            case_result: dict[str, Any] = {
+                "file": str(filepath),
+                "name": name,
+                "passed": passed,
+                "score": result.get("score"),
+                "cost_usd": result.get("cost_usd"),
+                "latency_ms": result.get("latency_ms"),
+                "failures": failures,
+                "tags": meta.tags,
+            }
+
+            if getattr(meta, "capture_io", False):
+                case_result["input"] = result.get("input")
+                case_result["output"] = result.get("output")
+                case_result["ideal"] = result.get("ideal")
+
+            results.append(case_result)
 
     # Output
     if args.output_format == "json":

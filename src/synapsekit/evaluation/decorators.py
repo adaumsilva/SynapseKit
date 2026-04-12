@@ -16,6 +16,7 @@ class EvalCaseMeta:
     max_cost_usd: float | None = None
     max_latency_ms: float | None = None
     tags: list[str] = field(default_factory=list)
+    capture_io: bool = False
 
 
 def eval_case(
@@ -24,6 +25,7 @@ def eval_case(
     max_cost_usd: float | None = None,
     max_latency_ms: float | None = None,
     tags: list[str] | None = None,
+    capture_io: bool = False,
 ) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Decorator to mark a function as an evaluation case.
 
@@ -46,6 +48,7 @@ def eval_case(
             max_cost_usd=max_cost_usd,
             max_latency_ms=max_latency_ms,
             tags=tags or [],
+            capture_io=capture_io,
         )
         fn._eval_case_meta = meta  # type: ignore[attr-defined]
 

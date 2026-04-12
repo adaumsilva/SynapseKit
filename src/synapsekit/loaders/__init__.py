@@ -1,18 +1,23 @@
 from typing import Any
 
+from .azure_blob import AzureBlobLoader
 from .base import Document
 from .markdown import MarkdownLoader
+from .mongodb import MongoDBLoader
+from .s3 import S3Loader
 from .text import StringLoader, TextLoader
 
 __all__ = [
     "ArXivLoader",
     "AudioLoader",
+    "AzureBlobLoader",
     "CSVLoader",
     "ConfluenceLoader",
     "DirectoryLoader",
     "DiscordLoader",
     "DocxLoader",
     "Document",
+    "DropboxLoader",
     "EmailLoader",
     "GCSLoader",
     "GitHubLoader",
@@ -23,9 +28,11 @@ __all__ = [
     "JSONLoader",
     "JiraLoader",
     "MarkdownLoader",
+    "MongoDBLoader",
     "NotionLoader",
     "PDFLoader",
     "RSSLoader",
+    "S3Loader",
     "SQLLoader",
     "SlackLoader",
     "StringLoader",
@@ -41,6 +48,7 @@ __all__ = [
 
 _LOADERS = {
     "ArXivLoader": ".arxiv",
+    "AzureBlobLoader": ".azure_blob",
     "PDFLoader": ".pdf",
     "HTMLLoader": ".html",
     "CSVLoader": ".csv",
@@ -63,11 +71,14 @@ _LOADERS = {
     "SlackLoader": ".slack",
     "NotionLoader": ".notion",
     "RSSLoader": ".rss",
+    "S3Loader": ".s3",
     "SQLLoader": ".sql",
     "SupabaseLoader": ".supabase",
     "TeamsLoader": ".teams",
     "WikipediaLoader": ".wikipedia",
     "ConfluenceLoader": ".confluence",
+    "MongoDBLoader": ".mongodb",
+    "DropboxLoader": ".dropbox",
 }
 
 

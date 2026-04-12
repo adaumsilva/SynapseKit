@@ -97,12 +97,12 @@ class PythonREPLTool(BaseTool):
             raise _CodeTimeoutError(f"Code execution timed out after {self.timeout} seconds")
 
         try:
-            signal.signal(signal.SIGALRM, timeout_handler)
-            signal.alarm(max(1, math.ceil(self.timeout)))
+            signal.signal(signal.SIGALRM, timeout_handler)  # type: ignore[attr-defined]
+            signal.alarm(max(1, math.ceil(self.timeout)))  # type: ignore[attr-defined]
             try:
                 exec(code, self._namespace)
             finally:
-                signal.alarm(0)  # Cancel alarm
+                signal.alarm(0)  # type: ignore[attr-defined]
 
             output = buf.getvalue()
             return ToolResult(output=output or "(no output)")
@@ -112,7 +112,7 @@ class PythonREPLTool(BaseTool):
             return ToolResult(output="", error=f"{type(e).__name__}: {e}")
         finally:
             sys.stdout = old_stdout
-            signal.alarm(0)  # Ensure alarm is cancelled
+            signal.alarm(0)  # type: ignore[attr-defined]
 
     async def _run_windows(self, code: str) -> ToolResult:
         """Execute code with multiprocessing timeout (Windows).
