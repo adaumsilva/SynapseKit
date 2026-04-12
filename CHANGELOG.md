@@ -11,6 +11,26 @@ SynapseKit uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.5.4] — 2026-04-12
+
+### Added
+
+- **`S3Loader`** — load files from Amazon S3 buckets into Documents; supports text, binary fallback, and rich file extraction (PDF, DOCX, XLSX, PPTX, CSV, JSON, HTML) via existing loaders; prefix filtering, extension filtering, `max_files` limit; credential chain (explicit keys, session tokens, or ambient IAM role); async `aload()` via executor; `pip install synapsekit[s3]`; closes #522
+- **`AzureBlobLoader`** — load blobs from Azure Blob Storage containers; supports both connection-string and account URL + credential auth; same extraction chain as S3Loader; prefix filtering, `max_files`; `pip install synapsekit[azure]`; closes #520
+- **`MongoDBLoader`** — load documents from a MongoDB collection as Documents; configurable `text_fields` and `metadata_fields`; optional `query_filter`; projection builder fetches only requested fields; defensive copy of filter dict; sync + async; `pip install synapsekit[mongodb]`; closes #519
+- **`DropboxLoader`** — load files from a Dropbox folder; supports 20+ text/code extensions; pagination via cursor; `limit` stops fetching early; download-error skipping; `pip install synapsekit[dropbox]`; closes #517
+- **`EvalDataset` / `EvalRecord`** — filterable, exportable collection of eval result records; `filter_score(min_score, max_score)` narrows to weak/strong cases; `export()` writes fine-tuning datasets in OpenAI, Anthropic, Together, JSONL, and DPO pair formats; `from_snapshot()` loads from existing EvalCI snapshots
+- **`FineTuner`** — orchestrates fine-tuning jobs against OpenAI and Together AI; injectable adapter pattern for extensibility; `submit()`, `status()`, `wait()` (polls until terminal state with configurable timeout/interval); `FineTuneJob` dataclass tracks id, provider, status, model_id, error
+- **`@eval_case(capture_io=True)`** — opt-in capture of `input`, `output`, and `ideal` fields in eval case results; required for `EvalDataset.export()`
+- **`synapsekit eval` CLI** — `report <snapshot>` summarises scores and weak cases; `export <snapshot> --format openai --output data.jsonl` writes fine-tune dataset; `compare <baseline> <current>` runs regression comparison
+- **`synapsekit finetune` CLI** — `submit <dataset> --provider openai --base-model gpt-4o-mini`; `status <job_id>`; `wait <job_id>` blocks until completion
+
+### Fixed
+
+- **`DropboxLoader` SDK compatibility** — original implementation called `.get()` on Dropbox SDK entry objects (`FileMetadata`, `FolderMetadata`), which are Stone-generated Python classes, not dicts; fixed with `_normalise_entry()` static method that converts SDK objects to canonical dicts via attribute access while passing test-mock dicts through unchanged
+
+---
+
 ## [1.5.3] — 2026-04-11
 
 ### Added
