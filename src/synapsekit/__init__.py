@@ -347,6 +347,7 @@ __all__ = [
     "CSVLoader",
     "JSONLoader",
     "DirectoryLoader",
+    "DropboxLoader",
     "ConfluenceLoader",
     "DocxLoader",
     "EmailLoader",
@@ -613,6 +614,7 @@ _LAZY_IMPORTS = {
     "MongoDBLoader": "loaders.mongodb",
     "AzureBlobLoader": "loaders.azure_blob",
     "S3Loader": "loaders.s3",
+    "DropboxLoader": "loaders.dropbox",
 }
 
 
